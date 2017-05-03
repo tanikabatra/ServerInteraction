@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "309139545873",
+    "firebase_url": "https://grocerytruck-94c49.firebaseio.com",
+    "project_id": "grocerytruck-94c49",
+    "storage_bucket": "grocerytruck-94c49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309139545873:android:179e780cc06f76f4",
+        "android_client_info": {
+          "package_name": "com.training.serverinteraction"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309139545873-ujt24u9vu8rp5cm0el0nhorr1t2rkc6t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWwLtdvmfE2Ll4ypKSrhsZas1WktHQnwE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

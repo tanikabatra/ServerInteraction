@@ -2,10 +2,12 @@ package com.training.serverinteraction;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,12 +74,17 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     ConnectivityManager connectivityManager;
     NetworkInfo networkInfo;
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ButterKnife.inject(this);
+        sharedPreferences = getSharedPreferences(Util.PREFS_NAME,MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         student = new Student();
 
@@ -190,6 +198,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
 
     void insertIntoCloud(){
+        final String token = FirebaseInstanceId.getInstance().getToken();
+        Log.i("TOKEN",token);
 
         String url;
 
@@ -211,7 +221,22 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                     progressDialog.dismiss();
 
                     if (success==1){
-                        finish();
+                        Toast.makeText(MainActivity.this,message ,Toast.LENGTH_LONG).show();
+
+                        if (!updateMode){
+
+                            editor.putString(Util.KEY_NAME,student.getName());
+                            editor.putString(Util.KEY_EMAIL,student.getEmail());
+                            editor.putString(Util.KEY_PHONE,student.getPhone());
+                            editor.commit();
+
+                            Intent home = new Intent(MainActivity.this,HomeActivity.class);
+                            startActivity(home);
+                            finish();
+                        }
+
+                        if (updateMode)
+                            finish();
                     }
 
 
@@ -247,6 +272,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 map.put("email",student.getEmail());
                 map.put("gender",student.getGender());
                 map.put("city",student.getCity());
+                map.put("token",token);
 
                 return map;
             }

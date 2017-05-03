@@ -16,4 +16,9 @@ public class Util {
     public static final String Delete_STUDENT_PHP = URI + "delete.php";
     public static final String Update_STUDENT_PHP = URI + "update.php";
 
+    public static final String PREFS_NAME = "grocerytruck";
+    public static final String KEY_NAME = "keyName";
+    public static final String KEY_PHONE = "keyPhone";
+    public static final String KEY_EMAIL = "keyEmail";
+
 }
